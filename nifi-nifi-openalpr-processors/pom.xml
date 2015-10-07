@@ -25,13 +25,19 @@
     <artifactId>nifi-nifi-openalpr-processors</artifactId>
     <packaging>jar</packaging>
 
+    <repositories>
+        <repository>
+            <id>LocalLibDirectory</id>
+            <name>LibDirectory</name>
+            <url>file://${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>com.openalpr</groupId>
             <artifactId>openalpr-binding</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/openalpr-binding-0.0.1-SNAPSHOT.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.nifi</groupId>
