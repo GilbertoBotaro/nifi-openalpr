@@ -134,7 +134,41 @@ public class OpenALPRProcessor extends AbstractProcessor {
 
     @OnScheduled
     public void onScheduled(final ProcessContext context) {
+        getLogger().info("Scheduled task has been called");
+        try {
+            getLogger().info("Creating Alpr object instance!");
 
+            Alpr alpr = new Alpr(context.getProperty(PRO_COUNTRY_CODE).getValue(),
+                    context.getProperty(PRO_OPENALPR_CONFIG_PATH).getValue(),
+                    context.getProperty(PRO_OPENALPR_RUNTIME_PATH).getValue());
+            alpr.setTopN(context.getProperty(PRO_OPENALPR_TOP_NUM_RESULTS).asInteger());
+            alpr.setDefaultRegion(context.getProperty(PRO_OPENALPR_DEFAULT_REGION).getValue());
+
+            //Read the image data from the flowfile to begin the analysis.
+            //TODO: right now for testing just reading a standard image file
+            Path path = Paths.get(context.getProperty(PRO_INPUT_IMAGE).getValue());
+            byte[] imagedata = Files.readAllBytes(path);
+
+            AlprResults results = alpr.recognize(imagedata);
+
+            getLogger().info("OpenALPR Version: " + alpr.getVersion());
+            getLogger().info("Image Size: " + results.getImgWidth() + "x" + results.getImgHeight());
+            getLogger().info("Processing time: " + results.getTotalProcessingTimeMs() + " ms");
+            getLogger().info("Found " + results.getPlates().size() + " results");
+
+            for (AlprPlateResult result : results.getPlates()) {
+                for (AlprPlate plate : result.getTopNPlates()) {
+                    System.out.format("%-15s%-8f\n", plate.getCharacters(), plate.getOverallConfidence());
+                }
+            }
+
+            //Make sure to release all of the memory that was being held
+            alpr.unload();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            getLogger().error("Error in OpenALPR: ", ex);
+        }
     }
 
     @Override
@@ -171,11 +205,14 @@ public class OpenALPRProcessor extends AbstractProcessor {
                 }
             }
 
+            session.transfer(flowFile, MY_RELATIONSHIP);
+
             //Make sure to release all of the memory that was being held
             alpr.unload();
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            getLogger().error("Error in OpenALPR: ", ex);
             session.transfer(flowFile, REL_FAILURE);
         }
 
