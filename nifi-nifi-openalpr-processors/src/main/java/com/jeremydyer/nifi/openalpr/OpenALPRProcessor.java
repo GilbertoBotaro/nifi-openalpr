@@ -79,7 +79,8 @@ public class OpenALPRProcessor extends AbstractProcessor {
             .Builder().name("OpenALPR Default Region")
             .description("Default region for detection. This is only supported in the 'us' country code and is experimental")
             .defaultValue("ga")
-            .required(false)
+            .required(true)
+            .addValidator(StandardValidators.NON_EMPTY_VALIDATOR)
             .build();
 
     public static final PropertyDescriptor PRO_INPUT_IMAGE = new PropertyDescriptor
