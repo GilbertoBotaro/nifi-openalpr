@@ -1,0 +1,4 @@
+target/*
+nifi-nifi-openalpr-nar/target/*
+nifi-nifi-openalpr-processors/target/*
+*.iml
