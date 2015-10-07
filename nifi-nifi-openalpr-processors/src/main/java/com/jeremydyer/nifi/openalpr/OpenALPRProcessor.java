@@ -142,7 +142,7 @@ public class OpenALPRProcessor extends AbstractProcessor {
                     context.getProperty(PRO_OPENALPR_CONFIG_PATH).getValue(),
                     context.getProperty(PRO_OPENALPR_RUNTIME_PATH).getValue());
             alpr.setTopN(context.getProperty(PRO_OPENALPR_TOP_NUM_RESULTS).asInteger());
-            alpr.setDefaultRegion(context.getProperty(PRO_OPENALPR_DEFAULT_REGION).getValue());
+            alpr.setDefaultRegion("wa");
 
             //Read the image data from the flowfile to begin the analysis.
             //TODO: right now for testing just reading a standard image file
@@ -180,7 +180,7 @@ public class OpenALPRProcessor extends AbstractProcessor {
                     context.getProperty(PRO_OPENALPR_CONFIG_PATH).getValue(),
                     context.getProperty(PRO_OPENALPR_RUNTIME_PATH).getValue());
             alpr.setTopN(context.getProperty(PRO_OPENALPR_TOP_NUM_RESULTS).asInteger());
-            alpr.setDefaultRegion(context.getProperty(PRO_OPENALPR_DEFAULT_REGION).getValue());
+            alpr.setDefaultRegion("wa");
 
             //Read the image data from the flowfile to begin the analysis.
             //TODO: right now for testing just reading a standard image file
