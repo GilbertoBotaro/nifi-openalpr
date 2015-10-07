@@ -151,14 +151,9 @@ public class OpenALPRProcessor extends AbstractProcessor {
 
             AlprResults results = alpr.recognize(imagedata);
 
-            getLogger().info("OpenALPR Version: " + alpr.getVersion());
-            getLogger().info("Image Size: " + results.getImgWidth() + "x" + results.getImgHeight());
-            getLogger().info("Processing time: " + results.getTotalProcessingTimeMs() + " ms");
-            getLogger().info("Found " + results.getPlates().size() + " results");
-
             for (AlprPlateResult result : results.getPlates()) {
                 for (AlprPlate plate : result.getTopNPlates()) {
-                    System.out.format("%-15s%-8f\n", plate.getCharacters(), plate.getOverallConfidence());
+                    getLogger().info("Found License Plate: '" + plate.getCharacters() + "' wich confidence of: " + plate.getOverallConfidence() + "% in " + results.getTotalProcessingTimeMs() + " ms");
                 }
             }
 
@@ -194,14 +189,9 @@ public class OpenALPRProcessor extends AbstractProcessor {
 
             AlprResults results = alpr.recognize(imagedata);
 
-            getLogger().info("OpenALPR Version: " + alpr.getVersion());
-            getLogger().info("Image Size: " + results.getImgWidth() + "x" + results.getImgHeight());
-            getLogger().info("Processing time: " + results.getTotalProcessingTimeMs() + " ms");
-            getLogger().info("Found " + results.getPlates().size() + " results");
-
             for (AlprPlateResult result : results.getPlates()) {
                 for (AlprPlate plate : result.getTopNPlates()) {
-                    System.out.format("%-15s%-8f\n", plate.getCharacters(), plate.getOverallConfidence());
+                    getLogger().info("Found License Plate: '" + plate.getCharacters() + "' wich confidence of: " + plate.getOverallConfidence() + "% in " + results.getTotalProcessingTimeMs() + " ms");
                 }
             }
 
