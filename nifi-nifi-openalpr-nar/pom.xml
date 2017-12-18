@@ -19,7 +19,7 @@
     <parent>
         <groupId>org.apache.nifi</groupId>
         <artifactId>nifi-openalpr</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.4.0</version>
     </parent>
 
     <artifactId>nifi-nifi-openalpr-nar</artifactId>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>org.apache.nifi</groupId>
             <artifactId>nifi-nifi-openalpr-processors</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.4.0</version>
         </dependency>
     </dependencies>
 
